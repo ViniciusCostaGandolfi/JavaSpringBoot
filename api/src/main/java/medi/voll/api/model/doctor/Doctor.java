@@ -1,4 +1,4 @@
-package medi.voll.api.model;
+package medi.voll.api.model.doctor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,23 +14,24 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import medi.voll.api.dto.DoctorDTO;
-import medi.voll.api.dto.PutDoctorDTO;
+import medi.voll.api.dto.Doctor.PostDoctorDTO;
+import medi.voll.api.dto.Doctor.PutDoctorDTO;
+import medi.voll.api.model.Adress;
 
 
 @Table(name = "doctors")
-@Entity(name = "DoctorModel")
+@Entity(name = "Doctor")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class DoctorModel {
+public class Doctor {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String name;
     private String email;
-    private String cellphone;
+    private String phone;
     private String crm;
     @Enumerated(EnumType.STRING)
     private Specialty specialty;
@@ -39,24 +40,24 @@ public class DoctorModel {
     
     @OneToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private AdressModel adress;
+    private Adress adress;
 
 
-    public DoctorModel(DoctorDTO doctor) {
+    public Doctor(PostDoctorDTO doctor) {
         this.active = true;
         this.name = doctor.name();
         this.email = doctor.email();
         this.crm = doctor.crm();
         this.specialty = doctor.specialty();
-        this.cellphone = doctor.cellphone();
-        this.adress = new AdressModel(doctor.adress());
+        this.phone = doctor.phone();
+        this.adress = new Adress(doctor.adress());
         
     }
 
     public void update(PutDoctorDTO doctor) {
         this.id = doctor.id();
         this.name = doctor.name();
-        this.cellphone = doctor.cellphone();
+        this.phone = doctor.phone();
         this.adress.update(doctor.adress());
     }
 

@@ -10,14 +10,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import medi.voll.api.dto.AdressDTO;
+import medi.voll.api.dto.Adress.PostAdressDTO;
 
 @Table(name = "adresses")
-@Entity(name = "AdressModel")
+@Entity(name = "Adress")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class AdressModel {
+public class Adress {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String street; 
@@ -27,7 +27,7 @@ public class AdressModel {
     private String city;
     private String uf;
 
-    public AdressModel(AdressDTO adress) {
+    public Adress(PostAdressDTO adress) {
         this.street = adress.street();
         this.number = adress.number();
         this.complement = adress.complement();
@@ -36,7 +36,7 @@ public class AdressModel {
         this.uf = adress.uf();
     }
 
-    public void update(AdressDTO adress) {
+    public void update(PostAdressDTO adress) {
         this.street = adress.street();
         this.number = adress.number();
         this.complement = adress.complement();

@@ -1,8 +1,8 @@
-package medi.voll.api.dto;
+package medi.voll.api.dto.Adress;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record AdressDTO(
+public record PostAdressDTO(
     
     @NotBlank
     String street, 
